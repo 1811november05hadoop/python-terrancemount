@@ -1,3 +1,3 @@
 # python-assigment
 
-Instructions within script.
+All your base are belong to us.
