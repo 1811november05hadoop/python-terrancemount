@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import re
 import math
+import os
 '''
 Revature is building a new API! This API contains functions for validating data, 
 solving problems, and encoding data. 
@@ -39,18 +40,19 @@ Happy Scripting!
 Use the main function for testing purposes and to show me results for all functions.
 '''
 def main():
-	print(reverse('Hello World'))
-	print(acronym('Big   Friendly -- =  Gaint'))
-	print(acronym('Complementry metal-oxide semiconductors'))
-	print(whichTriangle(1, 2, 3))
-	print(whichTriangle(1, 1, 1))
-	print(whichTriangle(2, 2, 3))
-	print(whichTriangle(1, 2, 2))
-	print(whichTriangle(1, 2, 1))
-	print(str(scrabble("Hello")))
-	print(str(scrabble("quick")))
-	print(str(scrabble("qzk")))
-	print(str(scrabble("aeiou")))
+	os.system('clear')
+	print('reverse("Hello World") = ', reverse('Hello World'))
+	print('acronym(Big   Friendly -- =  Gaint) = ', acronym('Big   Friendly -- =  Gaint'))
+	print('acronym(Complementry metal-oxide semiconductors) = ', acronym('Complementry metal-oxide semiconductors'))
+	print('whichTriangle(1, 2, 3) = ', whichTriangle(1, 2, 3))
+	print('whichTriangle(1, 1, 1) = ', whichTriangle(1, 1, 1))
+	print('whichTriangle(2, 2, 3) = ', whichTriangle(2, 2, 3))
+	print('whichTriangle(1, 2, 2) = ', whichTriangle(1, 2, 2))
+	print('whichTriangle(1, 2, 1) = ', whichTriangle(1, 2, 1))
+	print('scrabble("Hello") = ', str(scrabble("Hello")))
+	print('scrabble("quick") = ', str(scrabble("quick")))
+	print('scrabble("qzk") = ', str(scrabble("qzk")))
+	print('scrabble("aeiou") = ', str(scrabble("aeiou")))
 	print('armstrong(153) = ', str(armstrong(153)))
 	print('armstrong(154) = ', str(armstrong(154)))
 	print('primeFactors(27) = ', str(primeFactors(27)))
@@ -59,11 +61,15 @@ def main():
 	print('primeFactors(101) = ', str(primeFactors(101)))
 	print('primeFactors(60) = ', str(primeFactors(60)))
 	print('primeFactors(8) = ', str(primeFactors(8)))
-	print('primeFactors(8) = ', str(primeFactors(8)))
 	print('pangram("hello") = ', str(pangram('hello')))
 	print('pangram("The quick brown fox jumped over the lazy dog.") = ', str(pangram('The quick brown fox jumps over the lazy dog.')))
-	
-
+	print('sort(1,2,3,4) = ', str(sort(list([1,2,3,4]))))
+	print('sort(4,3,2,1) = ', str(sort(list([4,2,3,1]))))
+	print('sort(1,10,5,3,5,7,8) = ', str(sort(list([1,10,5,3,5,7,8]))))
+	print('rotate(1, "abc") = ', rotate(1, 'abc'))
+	print('rotate(13, "Gur dhvpx oebja sbk whzcf bire gur ynml qbt.") = ', rotate(13, 'Gur dhvpx oebja sbk whzcf bire gur ynml qbt.'))
+	print('evenAndOdds()')
+	evenAndOdds()
 '''
 1. Reverse a String. Example: reverse("example"); -> "elpmaxe"
 
@@ -233,9 +239,34 @@ Rules:
 
 param: list
 return: list
+
+i ← 1
+while i < length(A)
+    x ← A[i]
+    j ← i - 1
+    while j >= 0 and A[j] > x
+        A[j+1] ← A[j]
+        j ← j - 1
+    end while
+    A[j+1] ← x[4]
+    i ← i + 1
+end while
 '''
 def sort(numbers):
-	print("sort not defined")
+	i = 1
+	while i < len(numbers):
+		tmp = numbers[i]
+		j = i - 1
+		while j >= 0 and numbers[j] > tmp:
+			numbers[j + 1] = numbers[j]
+			j -= 1
+		numbers[j + 1] = tmp
+		i += 1
+	return numbers
+		
+	
+	
+	
 	
 '''
 9. Create an implementation of the rotational cipher, also sometimes called
@@ -267,7 +298,19 @@ param: int, str
 return: str
 '''
 def rotate(key, string):
-	print("rotate not implemented")
+	lowerCase = 'abcdefghijklmnopqrstuvwxyz'
+	upperCase = lowerCase.upper()
+	alphaMap = {}
+	for i in range(0, 26): 
+		alphaMap[lowerCase[i]] = lowerCase[(i + key) % len(lowerCase)] 
+		alphaMap[upperCase[i]] = upperCase[(i + key) % len(upperCase)] 
+			
+	charList = list(string)
+	for i in range(0, len(string)):
+		if charList[i] in alphaMap:
+			charList[i] = alphaMap[charList[i]]
+	return ''.join(charList)
+
 '''	
 10. Take 10 numbers as input from the user and store all the even numbers in a file called even.txt and
 the odd numbers in a file called odd.txt.
@@ -276,7 +319,13 @@ param: none, from the keyboard
 return: nothing
 '''
 def evenAndOdds():
-	print("evenAndOdds not implemented")
+	print('Please input 10 numbers separated with spaces')
+	print('numbers: ', end='')
+	#os.system('cat even.txt')
+	#os.system('cat odd.txt')
+	
+	print('')	
+	
 
 if __name__ == "__main__":
     main()
