@@ -2,6 +2,7 @@
 import re
 import math
 import os
+import sys
 '''
 Revature is building a new API! This API contains functions for validating data, 
 solving problems, and encoding data. 
@@ -239,18 +240,6 @@ Rules:
 
 param: list
 return: list
-
-i ← 1
-while i < length(A)
-    x ← A[i]
-    j ← i - 1
-    while j >= 0 and A[j] > x
-        A[j+1] ← A[j]
-        j ← j - 1
-    end while
-    A[j+1] ← x[4]
-    i ← i + 1
-end while
 '''
 def sort(numbers):
 	i = 1
@@ -263,11 +252,6 @@ def sort(numbers):
 		numbers[j + 1] = tmp
 		i += 1
 	return numbers
-		
-	
-	
-	
-	
 '''
 9. Create an implementation of the rotational cipher, also sometimes called
 the Caesar cipher.
@@ -319,12 +303,62 @@ param: none, from the keyboard
 return: nothing
 '''
 def evenAndOdds():
+
+	numList = []
+
 	print('Please input 10 numbers separated with spaces')
-	print('numbers: ', end='')
-	#os.system('cat even.txt')
-	#os.system('cat odd.txt')
+	while len(numList) < 10:
+
+		answer = input('numbers: ')
+		numList.extend(re.split('[^0-9\.]+', answer))
+		
+		i = 0	
+		listLength = len(numList)
+		while i < listLength:
+			try:
+				numList[i] = int(numList[i])
+			except:
+				try:
+					numList[i] = float(numList[i])
+				except:
+					numList.pop(i)
+					i -= 1
+			i += 1
+			listLength = len(numList)
+
+		if len(numList) < 10:
+			print('You only entered '+ str(len(numList))+ ' valid numbers, please enter ' + str(10 - len(numList)) + ' more numbers')
 	
-	print('')	
+	evenFile = open('even.txt', 'w')
+	oddFile = open('odd.txt', 'w')
+	
+	evenFile.write('[')
+	oddFile.write('[')
+
+	evenCount = 0
+	oddCount = 0
+	for i in range(0, len(numList)):
+		if numList[i] % 2 == 0:
+			if evenCount != 0:
+				evenFile.write(", ")
+			evenFile.write(str(numList[i]))
+			evenCount += 1
+		else:
+			if oddCount != 0:
+				oddFile.write(", ")
+			oddFile.write(str(numList[i]))
+			oddCount += 1
+
+	evenFile.write(']')
+	oddFile.write(']')
+	evenFile.close()
+	oddFile.close()
+	
+	os.system('cat even.txt')
+	print('')
+	os.system('cat odd.txt')
+	print('')
+	#print(numList)	
 	
 
 if __name__ == "__main__":
